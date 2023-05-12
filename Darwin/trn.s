@@ -51,4 +51,4 @@ l5:
     pop %r12
     pop %rbx
     pop %rbp
-    retq
+    ret

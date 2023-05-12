@@ -31,7 +31,7 @@ l2:
     jb l3
     vmovups (%rdi, %r14, 8), %ymm0
     vmovups (%rsi, %r14, 8), %ymm1
-    vsubpd %ymm0, %ymm1, %ymm2
+    vsubpd %ymm1, %ymm0, %ymm2
     vmovups %ymm2, (%rdx, %r14, 8)
     addq %rax, %r14
     jmp l2
@@ -43,7 +43,7 @@ l4:
     je l1
     movq (%rdi, %r14, 8), %xmm0
     movq (%rsi, %r14, 8), %xmm1
-    addsd %xmm1, %xmm0
+    subsd %xmm1, %xmm0
     movq %xmm0, (%rdx, %r14, 8)
     incq %r14
     jmp l4
@@ -54,4 +54,4 @@ l5:
     pop %r12
     pop %rbx
     pop %rbp
-    retq
+    ret

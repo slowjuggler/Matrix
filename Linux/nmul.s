@@ -13,16 +13,16 @@ nmul:
     movq $4, %rax
     vpbroadcastq %xmm0, %ymm0
 l1:
-    cmpq %r13, %rcx
+    cmpq %r13, %rdx
     je l5
     movq (%r10, %r13, 8), %rdi
     movq (%r11, %r13, 8), %rsi
     xorq %r14, %r14
     incq %r13
-    cmpq %rax, %rdx
+    cmpq %rax, %rcx
     jb l4
 l2:
-    cmpq %r14, %rdx
+    cmpq %r14, %rcx
     je l1
     movq %r14, %rbx
     subq %rdx, %rbx
@@ -37,7 +37,7 @@ l3:
     vzeroupper
     subq $3, %r14
 l4:
-    cmpq %r14, %rdx
+    cmpq %r14, %rcx
     je l1
     movq (%rdi, %r14, 8), %xmm1
     mulsd %xmm0, %xmm1
@@ -51,4 +51,4 @@ l5:
     pop %r12
     popq %rbx
     popq %rbp
-    retq
+    ret

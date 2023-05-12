@@ -1,6 +1,6 @@
 .global _add
 _add:
-	push %rbp
+    push %rbp
     push %rbx
     push %r12
     push %r13
@@ -54,4 +54,4 @@ l5:
     pop %r12
     pop %rbx
     pop %rbp
-	retq
+    ret

@@ -6,7 +6,7 @@ add:
     push %r13
     push %r14
     push %r15
-    movq %rsp, %rbp
+	movq %rsp, %rbp
     movq %rdi, %r10
     movq %rsi, %r11
     movq %rdx, %r12
@@ -54,4 +54,4 @@ l5:
     pop %r12
     pop %rbx
     pop %rbp
-    retq
+    ret

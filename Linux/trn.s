@@ -20,7 +20,7 @@ l1:
     movq %r13, %r15
     decq %r15
     cmpq %rax, %rcx
-    jb l4
+    jmp l4
 l2:
     cmpq %r14, %rdx
     je l1
@@ -51,4 +51,4 @@ l5:
     pop %r12
     pop %rbx
     pop %rbp
-    retq
+    ret

@@ -33,12 +33,13 @@ l3:
     je l2
     movq %r15, %rbx
     subq %r8, %rbx
+    incq %rbx
     cmpq %rax, %rbx
     jb l4
     vmovups (%rsi, %r15, 8), %ymm1
-    vmovups (%rdx, %r15, 8), %ymm3
-    vfmadd231pd %ymm0, %ymm1, %ymm3
-    vmovups %ymm3, (%rdx, %r15, 8)
+    vmovups (%rdx, %r15, 8), %ymm2
+    vfmadd231pd %ymm1, %ymm0, %ymm2
+    vmovups %ymm2, (%rdx, %r15, 8)
     addq %rax, %r15
     jmp l3
 l4:
