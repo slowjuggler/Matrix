@@ -1,51 +1,46 @@
-CC=gcc
-CFLAGS=-std=c11 -Wall -Werror -Wextra -g
-SOURCES=matrix.c
-OBJECTS=$(SOURCES:.c=.o)
+GCC = gcc -std=c++17 -pedantic -Wall -Werror -Wextra
+SOURCES = matrix.cc
+TEST = tests.cc
+LIB = matrix.a
+LIBOBJ = matrix.o
+GCOV =--coverage
+
 OS = $(shell uname)
-TEST_FILE_NAME = matrix_test.c
 
 ifeq ($(OS), Darwin)
-	TEST_LIBS=-lcheck
+	LIBFLAGS = -lm -lgtest -lstdc++
 else
-	TEST_LIBS=-lcheck -pthread -lrt -lm 
+	LIBFLAGS=-lstdc++ `pkg-config --cflags --libs gtest`
 endif
 
-all: matrix.a
+all: clean test
 
-matrix.a: clean copy mob $(OBJECTS)
+test: matrix.a
+	$(GCC) $(TEST) $(SOURCES) *.s -o test $(LIBFLAGS) -L. --coverage
+	./test
+
+matrix.a: clean copy mob
 	ar -rcs matrix.a *.o
 	rm -f *.o
 
 mob:
-	gcc -c *.s	
+	gcc -c *.s
 
-test: $(TEST_FILE_NAME) matrix.a
-	$(CC) $(CFLAGS) $(TEST_FILE_NAME) $(SOURCES) *.s -o test $(TEST_LIBS) -L. --coverage
+gcov_report: matrix.a
+	$(GCC) $(GCOV) $(TEST) $(SOURCES) $(LIB) -L. $(LIB)  $(LIBFLAGS) -o test
 	./test
+	lcov -t "test" -c -d  ./ --no-external --output-file ./coverage.info
+	genhtml ./coverage.info --output-directory ./report/
+	open ./report/index.html
 
-gcov_report: test
-	lcov -t "test" -o test.info -c -d .
-	genhtml -o report test.info
-	open report/index.html
-
-clean:
-	rm -rf *.o *.s *.a *.so *.gcda *.gcno *.gch rep.info *.html *.css test report *.txt test.info test.dSYM proj
-install_lcov:
-	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
-	brew install lcov
-
-check: test
-	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.c *.h
-	rm -rf CPPLINT.cfg
-	make test
-
-leaks: test
 ifeq ($(OS), Darwin)
 	leaks --atExit -- test
 else
-	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./test
+	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt ./test
 endif
+
+clean:
+	rm -rf *.s *.o *.a *.so *.cfg *.out *.dSYM test *.txt report *.info *.gcda *.gcno *.gch .clang-format logs
 
 copy:
 ifeq ($(OS), Darwin)
