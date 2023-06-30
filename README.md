@@ -2,8 +2,7 @@
 
 Description.
 
-Implementation on C++ of a small library
-for working with matrices. The fast matrix
+Implementation of Matrix class. The fast matrix
 multiplication algorithm is implemented in
 GNU Assembly Language using SIMD.
 Architecture and environment restrictions
