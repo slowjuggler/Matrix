@@ -2,7 +2,7 @@
 
 #include "matrix.h"
 
-#define SIZE 2048	// multiplication matrixes size 
+#define SIZE 2048	// multiplication matrixes size blablabla
 #define SIZE_S 20	// determinant calculation matrix size
 
 TEST(Constructors, DefaultEqual) {

@@ -2,7 +2,8 @@
 
 Description.
 
-Implementation of Matrix class. Includes methods for working with matrices,
+Implementation of Matrix class. Includes blablabla
+methods for working with matrices,
 such as multiplication, finding the determinant, algebraic complement, etc.
 The fast matrix multiplication algorithm is implemented in
 GNU Assembly Language using SIMD (AVX2).
