@@ -50,7 +50,7 @@ void Matrix::MulNumber(const double val) {
 void Matrix::MulMatrix(const Matrix &other) {
   if (cols_ != other.rows_) throw std::out_of_range("WRONG SIZE");
   Matrix res(rows_, other.cols_);
-  mul(matrix_, other.matrix_, res.matrix_, rows_, other.cols_, cols_);
+  mul(matrix_, other.matrix_, res.matrix_, rows_, other.cols_, cols_); // extern GAS AVX2 function
   *this = res;
 }
 
