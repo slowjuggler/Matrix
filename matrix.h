@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-#define EPS 1e-07 // precision for double value
+#define EPS 1e-07 // precision for double value blablabla
 #define MAX_DOUBLE 1.79769e+308
 #define MIN_DOUBLE 2.22507e-308
 
