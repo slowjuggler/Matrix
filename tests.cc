@@ -317,7 +317,7 @@ TEST(Methods, MulMatrixSuccess) {
   EXPECT_TRUE(matrix1.EqMatrix(matrix3));
 }
 
-TEST(Methods, MulBigMatrixSuccess) {
+TEST(Methods, MulBigMatrixSuccess) {	// 2048 x 2048 matrixes multiplication
   Matrix matrix1(SIZE, SIZE);
   Matrix matrix2(SIZE, SIZE);
   double delta_1 = 0.0077;
